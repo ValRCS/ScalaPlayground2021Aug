@@ -12,5 +12,6 @@ object Variables extends App {
 //  println(a,b,c,d) //bad idea we are using d before it is created
   val d = a+b+c
   println(a,b,c,d)
+  println("a+b=", a+b)
 
 }
