@@ -9,6 +9,12 @@ object Conditionals extends App {
   // remember a could be coming from somewhere else or user input or database or somewhere
   if (a > 10) println(s"a is larger than 10, actually a is $a") // so nothing happens if a is not larger than 10
 
+  if (a > 600) {
+    //we could do lots of things
+    println("Over 600")
+    println(a)
+  }
+
   //we can also do if else, show two paths
   if (a > 8) println(s"a is larger than 10, actually a is $a")
   else println("a is less or equal to 8")
@@ -30,6 +36,7 @@ object Conditionals extends App {
     if (a > 500) println("Over 500") //so branch inside a branch
     else println("over 100 but less or equal to 500")
     println(s"WE can print b just for heck of it $b")
+    //so b with 33333 is gone after this line
   } else println("less than or equal to 100")
 
   //
@@ -52,4 +59,14 @@ object Conditionals extends App {
     //but with multi branches it is easy to make a mistake
   }
 
+  //if you have more than 3 or 4 branches you should consider pattern matching which is another way of branching
+
+  //so Scala lets us do expression oriented programming
+  val b = readLine("okay how about you give me a b?").toInt
+//  val minValue =  if (a < b) a else b //of course this covers a == b
+  //so why is minValue double?
+  //since minValue could possibly be also double (from a) it has to be double
+  //if we wanted to be sure it is integer we could put it in parenthesis and cast to Integer
+  val minValue =  (if (a < b) a else b ).toInt //of course this covers a == b
+  println(s"out of $a and $b the smallest is $minValue")
 }
