@@ -3,7 +3,7 @@ import scala.io.StdIn.readLine
 object Conditionals extends App {
   //conditionals let us branch our code, take one of multiple paths
 
-//  val a = -400
+  //  val a = -400
   val a = readLine("Enter value of a(must be number)").toDouble //we will allow floating points as well
 
   // remember a could be coming from somewhere else or user input or database or somewhere
@@ -33,6 +33,23 @@ object Conditionals extends App {
   } else println("less than or equal to 100")
 
   //
-//  println(b) //so b is only accessible to within that  {} block after a > 100
+  //  println(b) //so b is only accessible to within that  {} block after a > 100
+  val d = if (a > 10) 10 else a //so d is a capped at 10 otherwise it is the value of a
+  println(d)
+
+  //now let's determine whether a is even or odd (assuming it is integer first)
+  if (a.toInt % 2 == 0) println(s"whole part of $a is even")
+  else println(s"whole part of $a is odd")
+
+  //so if you have 3 branches you want to explore we can chain the if else statements
+
+  if (a > 50) {
+    println(s"a is greater than 50, a is actually $a")
+  } else if (a < 50) {
+    println(s"a is less than 50, a is actually $a")
+  } else {
+    println(s"What do you know? a is exactly 50, just a double check a is $a") //what else could it be other than 50
+    //but with multi branches it is easy to make a mistake
+  }
 
 }
