@@ -50,4 +50,12 @@ object WhileLoops extends App {
     println(s"New Counter value is $counter")
     userInput = readLine("Do you want to quit (Y/N)?")
   }
+
+  //we can also combine conditions inside loop check
+  println("Starting another loop")
+  while (counter < 10 && userInput != "Exit") {
+    counter +=1
+    println(s"New Counter value is $counter")
+    userInput = readLine("Enter Exit to quit or count to 10 first...") //not very friendly
+  }
 }
