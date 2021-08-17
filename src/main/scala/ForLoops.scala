@@ -42,4 +42,47 @@ object ForLoops extends App {
       println(s"$number is odd...")
     }
   }
+
+  //so Range gives us numbers on demand in certain
+  for (n <- Range(0,10)) {
+    println(s"n is $n")
+  }
+
+  //we can also add a step to range
+  for (n <- Range(0,10,2)) {
+    println(s"n is $n")
+  }
+
+  //so with to 10 will be included
+  for (n <- 0 to 10 by 2) {
+    println(s"n is $n")
+  }
+  //if we did not want 10 we would have used until
+  for (n <- 0 until 10 by 2) {
+    println(s"n is $n")
+  }
+
+  //we can go the other way as well
+  for (n <- 20 to 0 by -4) {
+    println(s"n is $n")
+  }
+
+  //again if we used range it would be just like using until (and by)
+  for (n <- Range(20,0, -4)) {
+    println(s"n is $n")
+  }
+
+  //how about partial steps
+  //so double sized steps would not be suitable for loop we could use a while loop
+
+  {
+    //i do not want others using my n so I put it inside brackets scope
+    var n = 0.0
+    while (n <= 10) {
+      println(s"n is $n")
+      n += 0.5
+    }
+  }
+
+
 }
