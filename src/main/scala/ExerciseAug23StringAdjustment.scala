@@ -14,6 +14,7 @@ object ExerciseAug23StringAdjustment extends App {
 
   println(processString("Valdis")) //here function works correctly already as a base/default case
   println(processString("Valdis", "ad")) //so we want to see "VAlDis"
+  println(processString(text="Baltijas Ceļš", uppercaseChars = "altijas")) //we want to see "BALTIJAS Ceļš"
 
   println("Valdis".replace("d", "D"))
 
