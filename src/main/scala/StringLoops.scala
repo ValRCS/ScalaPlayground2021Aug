@@ -13,4 +13,11 @@ object StringLoops extends App {
   //we can also enumerate our characters uzing zipWithIndex function
   for ((myChar, index) <- myName.zipWithIndex) println(s"Index $index and char is $myChar")
 
+  val mySeq = for (c <- myName) yield c.toString //we will get a sequence of strings
+  println(mySeq)
+
+  //so Sequence is a new type of data structure it can be used to hold multiples of any data types (including sequences themselves)
+
+
+
 }
