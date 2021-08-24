@@ -13,16 +13,18 @@ object Aug24FizzBuzzCollection extends App {
     if ((n % 5 == 0) && (n % 7 == 0)) "FizzBuzz"
     else if ( n % 5 == 0 ) "Buzz"
     else if ( n % 7 == 0) "Fizz"
-    else s"No.$n" //alternative since we have no other text we could to n.toString
+    else s"$n" //alternative since we have no other text we could to n.toString
   }
 
   //yield approach
   //n can be any name it just has to match name in getFizzBuzzText(..)
   val myFizzBuzz = for (n <- myNumbers) yield getFizzBuzzText(n)
   //n is gone here
-  myFizzBuzz.foreach(println)
+//  myFizzBuzz.foreach(println)
+  println(myFizzBuzz.mkString("(",",", ")")) //you can choose your own start, separate and end as wish
 
   //or we could also use map in fact yield translates to map underneath in Scala
   val myFizzBuzzToo = myNumbers.map(n => getFizzBuzzText(n))
-  myFizzBuzzToo.foreach(println)
+//  myFizzBuzzToo.foreach(println)
+  println(myFizzBuzzToo.mkString("(",",", ")"))
 }
