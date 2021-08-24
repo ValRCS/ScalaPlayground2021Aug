@@ -67,4 +67,19 @@ object CollectionsIntro extends App {
     else s"Odd square $n" //remember we are returning the last line in our block of { }
   }
   myNumberDescriptions.foreach(println)
+
+  //alternative to yield, even shorter
+  val cubes = numbers.map(n => n*n*n) //we create a mapping from one collection into another
+  cubes.foreach(println)
+
+  def getNumberDescription(n:Int): String = {
+    if (n % 2 == 0) s"Even square $n"
+    else s"Odd square $n" //remember we are returning the last line in our block of { }
+  }
+
+  val myNumberDescriptionsAgain = for (n <- cubes) yield getNumberDescription(n) //here instead of writing out the ifs I use already defined function
+  myNumberDescriptionsAgain.foreach(println)
+  //so map will work the same as yield here
+  val myCubesDescription = cubes.map(n => getNumberDescription(n)) //so a bit shorter than yield but does the same thing
+  myCubesDescription.foreach(println)
 }
