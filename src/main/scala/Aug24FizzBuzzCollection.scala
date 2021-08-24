@@ -1,5 +1,6 @@
 object Aug24FizzBuzzCollection extends App {
-  //TODO create an Array[String] containing FizzBuzz values from 1 to 100 included
+  //TODO create an Array[String] containing FizzBuzz values from 1 to 100 included and print it out
+  //That is "1", "2", "3", "4", "Fizz", "6", "Buzz", "8" etc...
 
   //FIXME
   val myNumbers = (1 to 10).toArray
