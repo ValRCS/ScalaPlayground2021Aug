@@ -6,7 +6,7 @@ object Aug24FizzBuzzCollection extends App {
 
   //you can either yield or map
   //I recommend creating a helper function
-  def getFizzBuzzText(n: Int)= {
+  def getFizzBuzzText(n: Int): String = {
     //FIXME
     if (n % 2 == 0) s"Even $n"
     else s"Odd $n"
