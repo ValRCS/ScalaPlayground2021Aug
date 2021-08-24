@@ -1,6 +1,7 @@
 object ArrayConcatenation extends App  {
   val smallNumbers = (1 to 10).toArray
   val bigNumbers = (100 to 109).toArray
+  //https://alvinalexander.com/scala/scala-merging-two-arrays-arraybuffers-joining/
   val combinedNumbers = smallNumbers ++ bigNumbers
   println(combinedNumbers.mkString(",")) //so mkString without start or end just separator
 
