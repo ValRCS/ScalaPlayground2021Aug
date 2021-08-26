@@ -8,9 +8,32 @@ object ExerciseAug26DiceCollector extends App {
   println(singleDice.count(_ == 6)) //syntax or for counting specific occurences
 
   //TODO create a value for number of dice throws (or ask user for number)
+  val numThrows = 1_000_000
   //TODO create sequence of doubleDice throws
-  //Calculate sum
-  //Calculate average
-  //Calculate max, and min (should be 12 and 2)
+  val dicePerThrow = 6
+
+  def throwDice(howMany:Int = 2):Int = {
+    var result= 0
+    for (_ <- 0 until howMany) result += nextInt(6)+1 //so howMany times we are adding a dice throw to our result
+    4 //chosen by random dice :)
+    result
+  }
+//  val doubleDice = for (_ <- 0 until numThrows) yield nextInt(6)+1+nextInt(6)+1
+  val doubleDice = for (_ <- 0 until numThrows) yield throwDice(dicePerThrow) //by default we throw 2 dice
+  println(doubleDice.slice(0,30).mkString(","))
+  println(s"Min throw is ${doubleDice.min}")
+  println(s"Max throw is ${doubleDice.max}")
+  val allThrowsSum = doubleDice.sum
+  println(s"All throws summed is $allThrowsSum")
+  val throwsAvg = allThrowsSum.toDouble / doubleDice.length
+  println(s"Average throw has the value $throwsAvg")
+
   //print number of times each number from 2 to 12 occurs in the sequence
+  val throwCounts = for (n <- dicePerThrow to dicePerThrow*6) yield doubleDice.count(_ == n) //so with yield I am saving each result of counting in a sequence
+  println(throwCounts.mkString(","))
+
+  for (n <- dicePerThrow to dicePerThrow*6) {
+    val cnt = doubleDice.count(_ == n)
+    println(s"$n occurs $cnt times")
+  }
 }
