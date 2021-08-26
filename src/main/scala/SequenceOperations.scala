@@ -15,4 +15,8 @@ object SequenceOperations extends App {
   println(divBy3.mkString(","))
   val squares = numbers.map(n => n*n) //so in mapping we say what to do with each element in this case multiply by itself
   println(squares.mkString(","))
+
+  for (number <- numbers) {
+    println(s"I can do something with $number")
+  }
 }
