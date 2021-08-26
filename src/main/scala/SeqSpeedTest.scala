@@ -1,3 +1,4 @@
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random.nextInt
 
 object SeqSpeedTest extends App {
@@ -76,4 +77,27 @@ object SeqSpeedTest extends App {
   testSeqSorting(randomList)
 
   //i chose random numbers because sequential numbers 1,2,3,4 may not give you a good picture of performance due to optimization
+
+  //by default Scala offers immutable collections, if we want to use mutable, we need to import them
+  val randomArrBuffer = myRandoms.to(ArrayBuffer)
+
+  def testMutableSeqSorting(mySeq:scala.collection.mutable.Seq[Int]): Double = {
+    println(s"Testing sequence of type ${mySeq.getClass}")
+    val t0 = System.nanoTime()
+    //our speed tests start here
+    val seqSorted = mySeq.sorted //sorting is more intensive than summing
+
+    val t1 = System.nanoTime() //all done
+    val timePassedMs = (t1-t0)/1_000_000.0 //.0 is for double
+    println(mySeq.slice(0,20).mkString(",")) //i show first 20 items in my sequence
+    println(seqSorted.slice(0,20).mkString(","))
+    println(s"sorted sequence of ${seqSorted.length} length calculated in $timePassedMs mili seconds")
+    timePassedMs
+  }
+
+  testMutableSeqSorting(randomArrBuffer)
+
+  val randomMutableListBuffer = myRandoms.to(scala.collection.mutable.ListBuffer)
+
+  testMutableSeqSorting(randomMutableListBuffer)
 }
