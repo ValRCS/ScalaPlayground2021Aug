@@ -93,4 +93,33 @@ object MapsIntro extends App {
 //  val squareMap = for(n <- myNumbers) yield (n,n*n) //not such a great Map because indexed Sequence(Array ) would be fine
   val squareMap = (for (n <- myNumbers) yield (s"Number $n squared",n*n)).toMap //there is no specific order
   println(squareMap)
+
+  //we could also use map to create Maps (yield actually calls map underneath
+  val squareArray = myNumbers.map(n => (s"Number $n squared", n*n))
+  val squareMapAgain = squareArray.toMap //we could have called toMap immediately in the line above
+
+  println(squareArray.length)
+  println(squareArray.mkString(","))
+  println(squareMapAgain)
+  //so what is the difference between Array of Tuples(String,Int) and Map of String-> Int
+  //Array you call by number index
+  //Map you call directly by key (string here)
+  println(squareArray(3))
+  println(squareMapAgain.getOrElse("Number 3 squared", -1))
+  //I can split keys from values into two iterables -> probably Arrays
+  println(squareMapAgain.keys.mkString(",")) //we can get an array of Map keys
+  val myKeys = squareMapAgain.keys.toArray
+  val myValues = squareMapAgain.values.toArray
+
+  //we can remove key-value pairs by key only from mutable Maps
+  println(muteMap)
+  muteMap -= "cars" //removing by key
+
+  println(muteMap)
+  muteMap("birds") += 987 //so I am updating the value of key "birds" by adding to previous value (452 in this example)
+  println(muteMap)
+
+  //I can remove multiple key value pairs by specificing a sequence of keys
+  muteMap --= Seq("birds", "cats") //List or Array would work too
+  println(muteMap)
 }
