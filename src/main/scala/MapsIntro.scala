@@ -28,6 +28,8 @@ object MapsIntro extends App {
     println(s"my key: $key maps to -> $value")
   }
 
+
+
   //I can filter values out of one Map into another
   val greenMap = for ((key,value) <- myFavorites if (value == "green")) yield (key,value)
   println(greenMap.mkString(","))
@@ -86,4 +88,9 @@ object MapsIntro extends App {
   println(muteMap)
   muteMap("birds") = 452 //so we can add keys to existing mutable map
   println(muteMap)
+
+  //I can create a map out of Array with some yield fun
+//  val squareMap = for(n <- myNumbers) yield (n,n*n) //not such a great Map because indexed Sequence(Array ) would be fine
+  val squareMap = (for (n <- myNumbers) yield (s"Number $n squared",n*n)).toMap //there is no specific order
+  println(squareMap)
 }
