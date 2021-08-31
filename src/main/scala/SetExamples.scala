@@ -111,4 +111,6 @@ object SetExamples extends App {
   for (word <- words) wordSet += word.toLowerCase
 
   println(wordSet)
+
+  println(n1to2.subsetOf(n1to7)) //true
 }
