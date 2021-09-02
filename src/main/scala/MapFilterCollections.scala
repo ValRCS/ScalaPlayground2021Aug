@@ -26,4 +26,6 @@ object MapFilterCollections extends App {
   just3.foreach(n => prettyPrint(n))
   just3.foreach(prettyPrint(_))
   just3.foreach(prettyPrint) //so my function needs to take a single parameter for the super short syntax to work
+
+  prettyPrint(555)
 }
