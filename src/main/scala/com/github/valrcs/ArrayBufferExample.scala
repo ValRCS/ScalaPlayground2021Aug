@@ -1,6 +1,6 @@
+package com.github.valrcs
+
 import scala.collection.mutable.ArrayBuffer
-//immutables are available without import
-//mutables you have to import
 
 object ArrayBufferExample extends App {
   val numbers = (0 to 10).toArray
@@ -11,7 +11,7 @@ object ArrayBufferExample extends App {
   //because it is from mutable collection
 
   for (n <- numbers) {
-    squareBuffer += n*n //so I am adding the squares one by one to my buffer
+    squareBuffer += n * n //so I am adding the squares one by one to my buffer
   }
   squareBuffer.foreach(println)
   //generally once the job on the buffer is done and you are not expecting any new additions
