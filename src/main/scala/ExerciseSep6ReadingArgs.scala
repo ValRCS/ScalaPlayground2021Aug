@@ -1,10 +1,9 @@
 object ExerciseSep6ReadingArgs {
   //TODO either with extend App or def main (choose one!)
-  def main(args:Array[String]) = {
+  def main(args:Array[String]): Unit = {
     println("Starting main function")
-    //TODO read all arguments
     val argCount = args.length
-    println(s"We got ${argCount} arguments")
+    println(s"We got $argCount arguments")
 //    var total = 0.0
     var total:Double = 0 //also works
     for (arg <- args) {
