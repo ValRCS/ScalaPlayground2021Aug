@@ -116,4 +116,19 @@ object PatternMatching extends App {
   println(echoWhatYouGaveMe(Car("Peugot"))) //this goes to default and gets pretty printed because Car is a case class
 
   println(echoWhatYouGaveMe(Map((1,"one"),(2,"two"))))
+
+  //we can use pattern matcher as a poor man's regex
+  def stringMatcher(text:String ):String = {
+    text match {
+      case s"name:$myName" => s"Cool your name is: $myName"
+      case s"lastName:$myName" => s"Oh your last name is: $myName"
+      case s"$year-$h:$m:$ampm" => s"Ahh the year is $year and the hour is $h and minutes are $m and it is $ampm"
+      case s"$year-$time" => s"Ahh the year is $year and time is $time"
+      case _ => s"unrecognized string"
+    }
+  }
+  println(stringMatcher("name:Valdis"))
+  println(stringMatcher("lastName:Saules"))
+  println(stringMatcher("2021-21:20:PM")) //of course this is not precise all it cares is -
+  println(stringMatcher("2021-21.20.PM")) //of course this is not precise all it cares is -
 }
