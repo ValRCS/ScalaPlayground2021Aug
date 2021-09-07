@@ -8,14 +8,13 @@ object ReadingMultipleValues extends App {
 
   //we return a tuple of 3 values
   def parseUserInput(userInput: String): (String, Int, String) = {
+    //if we expect dirty input we can clean it up a bit first
+    //https://alvinalexander.com/scala/how-to-convert-multiple-spaces-to-single-space-regex/
     val trimmedInput = userInput.replaceAll(" +", " ") //so we replace one or more whitespace with single
+    //TODO do full regex match for name ageasnumber and eyecolor as string
     trimmedInput match {
-      case s"$name $age $eyeColor" => {
-        println(name, age, eyeColor) //for debugging
-        val ageFixed = if (age.length == 0) 0 else age.toInt //kind of hacky so regex is probably indicated for harder cases
-        (name, ageFixed, eyeColor) //this is our return
-      }
-
+      case s"$name $age $eyeColor" => (name, age.toInt, eyeColor)
+      case s"$name" => (name, 0, "unknown") //there were no spaces
       case _ => ("noName", 0, "unknown")
     }
 //    ("Valdis", 46, "brown") //FIXME
