@@ -1,10 +1,12 @@
-// Scala program to illustrate the 
+import com.github.valrcs.Car
+
+// Scala program to illustrate the
 // implementation of inheritance
 //https://www.geeksforgeeks.org/inheritance-in-scala/
 // Base class
 class Geeks {
   var Name: String = "Ankita"
-  def simplePrint = println(s"Simple print name is $Name")
+  def simplePrint: Unit = println(s"Simple print name is $Name")
 
   //we can override existing methods that are built in
   //for example to have print give out my custom print
@@ -21,8 +23,8 @@ class Geeks2 extends Geeks //so we
   // Method
   def details()
   {
-    println("Author name: " +Name);
-    println("Total numbers of articles: " +Article_no);
+    println("Author name: " +Name)
+    println("Total numbers of articles: " +Article_no)
   }
 
   override def simplePrint: Unit = {
