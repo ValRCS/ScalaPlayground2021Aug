@@ -49,6 +49,11 @@ object Utilities {
     lines
   }
 
+  /**
+   *
+   * @param dstPath - save Path
+   * @param text - string to save
+   */
   def saveText(dstPath: String, text: String):Unit = {
     import java.io.{PrintWriter, File} //explicit import
     val pw = new PrintWriter(new File(dstPath))
@@ -56,6 +61,11 @@ object Utilities {
     pw.close() //when writing it is especially important to close as early as possible
   }
 
+  /**
+   *
+   * @param dstPath - save Path
+   * @param lines - array of Strings to save
+   */
   def saveLines(dstPath: String, lines: Array[String]):Unit = {
     saveText(dstPath, lines.mkString("\n"))
   }

@@ -31,7 +31,9 @@ object ExerciseSep9ReadingPoem extends App {
   //  val filteredText = filteredLines.mkString("\n")
 
   val relative_save_path = "src/resources/stopping_by_selection.txt"
-  // PrintWriter
 
+  val filteredLinesWithHeaders = Array(firstLine) ++ Array(poetFullName) ++ filteredLines
+
+  Utilities.saveLines(relative_save_path, filteredLinesWithHeaders)
 
 }
