@@ -1,6 +1,8 @@
 package com.github.valrcs
 
-import scala.io.Source
+import com.github.valrcs.Utilities.getLinesFromFile
+//I can already use Utilities but I also have the short version from above
+
 
 object ReadingFiles extends App {
   println("Going to read some file")
@@ -16,14 +18,9 @@ object ReadingFiles extends App {
   val filePath = "src/resources/two_roads.txt" //to get this path
   // we started at location indicated by println(System.getProperty("user.dir"))
 
-  def getLinesFromFile(srcPath: String) = {
-    val bufferedSource = Source.fromFile(srcPath) //we have a source stream it could be network stream but here it is file stream
-    val lines = bufferedSource.getLines().toArray //so we transfer this stream until it ends into lines
-    //lines we define the ending character newline or \n
-    bufferedSource.close //very important to close a file after reading, do not leave it hanging!
-    lines
-  }
 
+
+//  val lines = Utilities.getLinesFromFile(filePath) //since i am lazy i could import it
   val lines = getLinesFromFile(filePath)
   println(s"Cool we got a poem with ${lines.length} lines")
   println(lines.mkString("\n")) //so we put back the newline...
