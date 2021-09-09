@@ -48,4 +48,15 @@ object Utilities {
     bufferedSource.close //very important to close a file after reading, do not leave it hanging!
     lines
   }
+
+  def saveText(dstPath: String, text: String):Unit = {
+    import java.io.{PrintWriter, File} //explicit import
+    val pw = new PrintWriter(new File(dstPath))
+    pw.write(text)
+    pw.close() //when writing it is especially important to close as early as possible
+  }
+
+  def saveLines(dstPath: String, lines: Array[String]):Unit = {
+    saveText(dstPath, lines.mkString("\n"))
+  }
 }
