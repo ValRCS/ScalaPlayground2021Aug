@@ -27,5 +27,30 @@ object ReadingFiles extends App {
 
   //we can always get back the text file with the new lines
   val text = lines.mkString("\n") //so we get back the newlines
-  print(text)
+//  print(text)
+
+  val firstLine = lines.head //same as lines(0)
+
+  val firstLineSplit = firstLine.split("by")
+  println(firstLineSplit.mkString(","))
+  val poemName = firstLineSplit.head.trim //we are guaranteed to have first part
+  println(s"Poem is $poemName")
+  //the next line requires that by exists so we add safety check for index
+  val poetName = if (firstLineSplit.length > 1) firstLineSplit(1).trim else "no poet found"
+
+  println(s"Poet is $poetName")
+
+  //now lets filter some lines which start with 'And'
+
+  val filterText = "And"
+  val filteredLines = for (line <- lines if line.startsWith(filterText)) yield line
+  println(s"Lines starting with $filterText")
+  println(filteredLines.mkString("\n"))
+
+  //we can also use filter to achieve same thing as yield
+  val filteredLinesToo = lines.filter(_.startsWith(filterText))
+  println(s"Lines starting with $filterText")
+  println(filteredLinesToo.mkString("\n"))
+
+
 }
