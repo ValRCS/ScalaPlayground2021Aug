@@ -2,6 +2,8 @@ package com.github.valrcs
 
 import com.github.valrcs.Utilities.getLinesFromFile
 
+import scala.collection.mutable.ArrayBuffer
+
 object ExerciseSep9ReadingPoem extends App {
   //TODO read stopping by poem from src/resources/stopping_by.txt we can use our Utilities method
   //TODO get poem name - it is the first line
@@ -35,6 +37,18 @@ object ExerciseSep9ReadingPoem extends App {
 //  val filteredLinesWithHeaders = Array(firstLine) ++ Array(poetFullName) ++ filteredLines
   val filteredLinesWithHeaders = Array(firstLine, poetFullName) ++ filteredLines //same result as above
 
-  Utilities.saveLines(relative_save_path, filteredLinesWithHeaders)
+  //alternative approach for time when you are building up a longer Array and do not have all pieces yet
+  val resultsBuffer = ArrayBuffer[String]()
+  resultsBuffer += firstLine
+  resultsBuffer += poetFullName
+  resultsBuffer ++= filteredLines //we are addding full Array to our buffer not just a single element
+  //add more string items/lines to our buffer
+  val resultsFinalized = resultsBuffer.toArray //nothing more can be added to this
+
+  Utilities.saveLines(relative_save_path, resultsFinalized) //so this will always overwrite the old file
+
+  Utilities.saveLines(relative_save_path, filteredLines, true)
+
+  Utilities.saveLines(relative_save_path, Array("my snowy lines are no good", "sleepy time"), true )
 
 }

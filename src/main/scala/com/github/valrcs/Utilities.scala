@@ -1,5 +1,6 @@
 package com.github.valrcs
 
+import java.io.FileWriter
 import scala.io.Source
 
 /**
@@ -54,11 +55,13 @@ object Utilities {
    * @param dstPath - save Path
    * @param text - string to save
    */
-  def saveText(dstPath: String, text: String):Unit = {
-    import java.io.{PrintWriter, File} //explicit import
-    val pw = new PrintWriter(new File(dstPath))
-    pw.write(text)
-    pw.close() //when writing it is especially important to close as early as possible
+  def saveText(dstPath: String, text: String, append:Boolean=false):Unit = {
+//    import java.io.{PrintWriter, File} //explicit import
+    val fw = new FileWriter(dstPath, append)
+//    val pw = new PrintWriter(new File(dstPath))
+    if (append) fw.write("\n") //TODO think about appending custom header
+    fw.write(text)
+    fw.close() //when writing it is especially important to close as early as possible
   }
 
   /**
@@ -67,7 +70,7 @@ object Utilities {
    * @param lines - array of Strings to save
    *              overwrites old file by default
    */
-  def saveLines(dstPath: String, lines: Array[String]):Unit = {
-    saveText(dstPath, lines.mkString("\n"))
+  def saveLines(dstPath: String, lines: Array[String], append:Boolean=false):Unit = {
+    saveText(dstPath, lines.mkString("\n"), append)
   }
 }
