@@ -28,4 +28,7 @@ object ReadingFiles extends App {
   println(s"Cool we got a poem with ${lines.length} lines")
   println(lines.mkString("\n")) //so we put back the newline...
 
+  //we can always get back the text file with the new lines
+  val text = lines.mkString("\n") //so we get back the newlines
+  print(text)
 }
