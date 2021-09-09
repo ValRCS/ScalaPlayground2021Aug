@@ -32,7 +32,8 @@ object ExerciseSep9ReadingPoem extends App {
 
   val relative_save_path = "src/resources/stopping_by_selection.txt"
 
-  val filteredLinesWithHeaders = Array(firstLine) ++ Array(poetFullName) ++ filteredLines
+//  val filteredLinesWithHeaders = Array(firstLine) ++ Array(poetFullName) ++ filteredLines
+  val filteredLinesWithHeaders = Array(firstLine, poetFullName) ++ filteredLines //same result as above
 
   Utilities.saveLines(relative_save_path, filteredLinesWithHeaders)
 

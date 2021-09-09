@@ -65,6 +65,7 @@ object Utilities {
    *
    * @param dstPath - save Path
    * @param lines - array of Strings to save
+   *              overwrites old file by default
    */
   def saveLines(dstPath: String, lines: Array[String]):Unit = {
     saveText(dstPath, lines.mkString("\n"))
