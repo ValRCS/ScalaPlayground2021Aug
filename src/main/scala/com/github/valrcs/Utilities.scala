@@ -1,6 +1,6 @@
 package com.github.valrcs
 
-import java.io.FileWriter
+import java.io.{File, FileWriter}
 import scala.io.Source
 
 /**
@@ -70,7 +70,23 @@ object Utilities {
    * @param lines - array of Strings to save
    *              overwrites old file by default
    */
-  def saveLines(dstPath: String, lines: Array[String], append:Boolean=false):Unit = {
-    saveText(dstPath, lines.mkString("\n"), append)
+  def saveLines(dstPath: String, lines: Array[String], append:Boolean=false, lineEnd:String="\n"):Unit = {
+    saveText(dstPath, lines.mkString(lineEnd), append)
+  }
+
+  /**
+   * adapted from https://alvinalexander.com/scala/how-to-list-files-in-directory-filter-names-scala/
+   * @param dir -- path to list files in
+   * @param regex  - match to filter by, default is everything
+   * @return -- returns a list of Files
+   */
+  def getListOfFiles(dir: String, regex:String=".*"):List[File] = {
+    val d = new File(dir)
+    if (d.exists && d.isDirectory) {
+//      d.listFiles.filter(_.isFile).toList
+      d.listFiles.filter(file => file.isFile && file.getName.matches(regex)).toList
+    } else {
+      List[File]() //so we return empty list if nothing is found
+    }
   }
 }
