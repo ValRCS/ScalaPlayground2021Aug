@@ -51,4 +51,10 @@ object ExerciseSep9ReadingPoem extends App {
 
   Utilities.saveLines(relative_save_path, Array("my snowy lines are no good", "sleepy time"), true )
 
+
+  Utilities.saveLines(relative_save_path, filteredLines, true, lineEnd="\n\n\n" )
+
+
+
+
 }
