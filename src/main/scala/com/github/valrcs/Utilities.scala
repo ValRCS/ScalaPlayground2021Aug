@@ -101,4 +101,6 @@ object Utilities {
     //BufferedSource means it is waiting to be processed because downloading from web might not be instant
     html.mkString
   }
+
+
 }
