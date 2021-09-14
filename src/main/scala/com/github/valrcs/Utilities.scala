@@ -102,5 +102,21 @@ object Utilities {
     html.mkString
   }
 
+  def getCharacterCount(lines: Array[String], newline:String="\n"):Int = lines.mkString(newline).length
+
+  /**
+   *
+   * @param lines - our input text lines
+   * @param sep - how to split words
+   * @param removeEmptyLines - whether to remove empty lines
+   * @return - array of word count per line
+   */
+  def getWordCountPerLine(lines: Array[String], sep:String=" +", removeEmptyLines:Boolean=true):Array[Int] = {
+    //first we clean the lines if necessary
+    val cleanLines = if (removeEmptyLines) lines.filter(_.trim.length > 0) else lines
+    val wordsLines = cleanLines.map(_.split(sep))
+    val wordCountPerLine = wordsLines.map(_.length)
+    wordCountPerLine
+  }
 
 }
