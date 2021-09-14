@@ -55,8 +55,9 @@ object Utilities {
    * @param dstPath - save Path
    * @param text - string to save
    */
-  def saveText(dstPath: String, text: String, append:Boolean=false):Unit = {
+  def saveText(dstPath: String, text: String, append:Boolean=false, verbose:Boolean=false):Unit = {
 //    import java.io.{PrintWriter, File} //explicit import
+    if (verbose) println(s"Saving ${text.length} characters to $dstPath")
     val fw = new FileWriter(dstPath, append)
 //    val pw = new PrintWriter(new File(dstPath))
     if (append) fw.write("\n") //TODO think about appending custom header
