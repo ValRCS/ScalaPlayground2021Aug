@@ -89,4 +89,15 @@ object Utilities {
       List[File]() //so we return empty list if nothing is found
     }
   }
+
+  /**
+   *
+   * @param url - web resource locator
+   * @return - we return the whole web page as string, it could be a text file
+   */
+  def getTextFromWeb(url: String):String = {
+    val html = Source.fromURL(url) //does not have to html, just keep in mind this accessed external web address
+    //BufferedSource means it is waiting to be processed because downloading from web might not be instant
+    html.mkString
+  }
 }
