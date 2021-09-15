@@ -59,6 +59,8 @@ object ExerciseSep14ExtractStories extends App {
 
 //  val firstStoryTitle = storyNames.head
 
+  //FIXME improvement use find or
+  //TODO https://www.baeldung.com/scala/find-index-element-in-list
   def findLineNumber(lines:Array[String], toMatch:String):Int = {
     //so this not Scala style using early return but very convenient here
     for ((line, index) <- lines.zipWithIndex) {
