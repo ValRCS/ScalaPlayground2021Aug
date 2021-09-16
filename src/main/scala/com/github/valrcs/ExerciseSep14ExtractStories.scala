@@ -1,6 +1,7 @@
 package com.github.valrcs
 
 object ExerciseSep14ExtractStories extends App {
+  val destDir = "src/resources/"
   val srcPath = "src/resources/61262-0.txt"
   val lines = Utilities.getLinesFromFile(srcPath)
   println(s"There are ${lines.length} lines in $srcPath")
@@ -97,5 +98,18 @@ object ExerciseSep14ExtractStories extends App {
     findLineNumberAlso(lines, story)
   })
   println(storyStartsAlso.mkString(","))
+
+  val startIndex = storyStartsAlso
+  val endIndex =  storyStartsAlso.tail ++ Array(lines.length) //so we do not need start of the story but we need the last line
+  println(startIndex.mkString(","))
+  println(endIndex.mkString(","))
+  //-1 will give us the title since we added the number , so +1 was only for finding lines in the text but our
+  //lines already are 0 based index
+  //-5 is kind of iffy but we do not want the end
+  val myStories = for ((start,end) <- startIndex zip endIndex) yield lines.slice(start-1,end-5).mkString("\n")
+
+  //so i will go through all airs of stories and their names and save them
+  //we might need a sanitize function since some names have some extra characters
+  for ((story, storyTitle) <- myStories zip storyNames) Utilities.saveText(destDir+storyTitle+".txt", story)
 
 }
