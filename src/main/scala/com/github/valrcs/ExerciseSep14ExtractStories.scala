@@ -72,7 +72,30 @@ object ExerciseSep14ExtractStories extends App {
     0 //nothing found
   }
 
+  //nicer way of doing the above
+  def findLineNumberAlso(lines:Array[String], toMatch:String, remove:String="the"):Int = {
+//    val cleanMatch = toMatch.replace("_","")
+    //we can make an internal helper function for this only available for findLineNumberAlso
+    def trimFun(line:String, remove:String, replacement:String = ""): String = line.
+      trim.
+      toLowerCase.
+      replace(remove, replacement).
+      replace(" ", "") //so we get rid of the white space
+    //it is possible we can find some false positive since we are going to lower case and removing the by default
+
+    val cleanMatch = trimFun(toMatch, remove)
+    println(s"CleanMatch is $cleanMatch")
+//    lines.indexWhere(line => trimFun(line, remove).contains(cleanMatch)) + 1 //+1 because our line numbers start with 1, if not found -1 will be 0
+    lines.indexWhere(line => trimFun(line, remove) == cleanMatch) + 1 //+1 because our line numbers start with 1, if not found -1 will be 0
+  }
+
   val storyStarts = storyNames.map(story => findLineNumber(lines, story))
   println(storyStarts.mkString(","))
+  val storyStartsAlso = storyNames.map(story => {
+    println(s"Finding story: $story")
+//    findLineNumberAlso(lines.slice(100,lines.length), story)
+    findLineNumberAlso(lines, story)
+  })
+  println(storyStartsAlso.mkString(","))
 
 }
