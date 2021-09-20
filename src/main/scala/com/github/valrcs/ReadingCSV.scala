@@ -37,4 +37,13 @@ object ReadingCSV extends App {
   println("Top 10 Most expensive")
   sortedVeggies.reverse.slice(0,10).foreach(println)
 
+
+  def writeVeggies(destName:String, arr: Array[Veggie], header:String = "category,item,variety,date,price,unit"):Unit = {
+    val lines = Array(header) ++ arr.map(_.toRow()) //so each veggie is mapped back into string
+    Utilities.saveLines(destName, lines)
+  }
+
+  val onlyLettuce = veggieLines.filter(_.item == "lettuce")
+  //TODO sort it by some key
+  writeVeggies("src/resources/csv/lettuce.csv", onlyLettuce )
 }
