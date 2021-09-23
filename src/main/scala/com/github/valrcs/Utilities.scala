@@ -52,6 +52,17 @@ object Utilities {
 
   /**
    *
+   * @param srcPath - relative path
+   * @return full text
+   */
+  def getTextFromFile(srcPath: String): String = {
+    val bufferedSource = Source.fromFile(srcPath)
+    bufferedSource.mkString
+  }
+
+
+  /**
+   *
    * @param dstPath - save Path
    * @param text - string to save
    */
