@@ -1,6 +1,7 @@
 package com.github.valrcs
 
 import java.io.{File, FileWriter}
+import java.nio.file.{Files, Paths}
 import scala.io.Source
 
 /**
@@ -128,6 +129,16 @@ object Utilities {
     val wordsLines = cleanLines.map(_.split(sep))
     val wordCountPerLine = wordsLines.map(_.length)
     wordCountPerLine
+  }
+
+  /**
+   *
+   * @param filePath - filePath
+   * @return whether file exists true or false
+   */
+  def isFileThere(filePath:String):Boolean = {
+    val path = Paths.get(filePath)
+    Files.exists(path)
   }
 
 }
