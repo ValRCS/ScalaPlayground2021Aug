@@ -13,3 +13,6 @@ libraryDependencies += "com.lihaoyi" %% "upickle" % "1.4.1"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
 libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.0.1"
+
+// https://mvnrepository.com/artifact/org.yaml/snakeyaml
+libraryDependencies += "org.yaml" % "snakeyaml" % "1.29"
