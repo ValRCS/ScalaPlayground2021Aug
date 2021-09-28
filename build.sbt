@@ -16,3 +16,7 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.0.1"
 
 // https://mvnrepository.com/artifact/org.yaml/snakeyaml
 libraryDependencies += "org.yaml" % "snakeyaml" % "1.29"
+
+//not very active but still useful if you to read Windows .ini files
+// https://mvnrepository.com/artifact/org.ini4j/ini4j
+libraryDependencies += "org.ini4j" % "ini4j" % "0.5.4"
