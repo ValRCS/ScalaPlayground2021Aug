@@ -12,7 +12,14 @@
 --Provide a query showing the Invoices of customers who are from Brazil. 
 --The resultant table should show the customer's full name, 
 --Invoice ID, Date of the invoice and billing country.
-
+--HINT we need to join 2 tables together for this to work
+SELECT c.FirstName , c.LastName , i.InvoiceId , i.InvoiceDate , i.BillingCountry , c.Country 
+FROM customers c 
+INNER JOIN invoices i 
+ON c.CustomerId = i.CustomerId
+WHERE c.Country = "Brazil"
+ORDER BY c.LastName ;
+--JUST ADD WHERE :)
 
 --SELECT
 --    Name, 
