@@ -85,9 +85,28 @@
 --HINT: GROUP BY
 
 --12 - line_item_track.sql: Provide a query that includes the purchased track name with each invoice line item
-
+--SELECT invoice_items.InvoiceLineId, invoice_items.InvoiceId, 
+--tracks.Name, invoice_items.Quantity, invoice_items.UnitPrice 
+--FROM invoice_items
+--JOIN tracks -- INNER JOIN is the default join
+--ON tracks.TrackId = invoice_items.TrackId
+--ORDER BY tracks.name; -- I can use just name because there is no name collision only one table
 --13 line_item_track_artist.sql: 
 -- Provide a query that includes the purchased track name AND artist name with each invoice line item.
+SELECT  invoice_items.InvoiceLineId, 
+tracks.Name Track, 
+--invoice_items.TrackId, 
+albums.Title Album,
+artists.Name Artist
+FROM invoice_items
+JOIN tracks  
+ON invoice_items.TrackId = tracks.TrackId 
+JOIN artists
+ON artists.ArtistId = albums.ArtistId
+JOIN albums 
+ON albums.AlbumId = tracks.AlbumId
+ORDER BY Artist;
+
 
 --l: Provide a query that includes the purchased track name with each invoice line item.
 
