@@ -13,13 +13,34 @@
 --The resultant table should show the customer's full name, 
 --Invoice ID, Date of the invoice and billing country.
 --HINT we need to join 2 tables together for this to work
-SELECT c.FirstName , c.LastName , i.InvoiceId , i.InvoiceDate , i.BillingCountry , c.Country 
-FROM customers c 
-INNER JOIN invoices i 
-ON c.CustomerId = i.CustomerId
-WHERE c.Country = "Brazil"
-ORDER BY c.LastName ;
+--SELECT c.FirstName , c.LastName , i.InvoiceId , i.InvoiceDate , i.BillingCountry , c.Country 
+--FROM customers c 
+--INNER JOIN invoices i 
+--ON c.CustomerId = i.CustomerId
+--WHERE c.Country = "Brazil"
+--ORDER BY c.LastName ;
 --JUST ADD WHERE :)
+
+--4 sales_agents.sql: Provide a query showing only the Employees who are Sales Agents.
+--SELECT * FROM employees e 
+--WHERE e.Title LIKE "%agent%";
+
+--5 unique_invoice_countries.sql: 
+-- Provide a query showing a unique/distinct list of billing countries from the Invoices table.
+-- ORDER BY ALPHABET
+--SELECT DISTINCT i.BillingCountry 
+--FROM invoices i 
+--ORDER BY i.BillingCountry ;
+
+--6. sales_agent_invoices.sql: 
+--Provide a query that shows the invoices associated with each sales agent. 
+--The resultant table should include the Sales Agent's full name.
+-- SO we need TWO JOINS across 3 tables
+--SELECT i.InvoiceId , i.InvoiceDate , e.FirstName , e.LastName FROM invoices i 
+--JOIN customers c 
+--ON c.CustomerId = i.CustomerId  -- careful with joins
+--JOIN employees e 
+--ON c.SupportRepId = e.EmployeeId ;
 
 --SELECT
 --    Name, 
