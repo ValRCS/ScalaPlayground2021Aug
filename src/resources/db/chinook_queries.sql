@@ -134,7 +134,27 @@
 --ON p.PlaylistId = pt.PlaylistId 
 --GROUP BY p.PlaylistId 
 --ORDER BY TrackCount DESC;
+--16.tracks_no_id.sql: Provide a query that shows all the Tracks, but displays no IDs. 
+--The result should include the Album name, Media type and Genre.
+--SELECT t.Name TrackName, t.Composer, 
+--a2.Title Album, 
+--t.Milliseconds/1000.0 Seconds,
+--printf("%.2f", t.Milliseconds/(1000*60.0)) Minutes,
+--g.Name Genre, mt.Name Media 
+--FROM tracks t 
+--JOIN genres g 
+--ON t.GenreId = g.GenreId 
+--JOIN media_types mt 
+--ON mt.MediaTypeId = t.MediaTypeId 
+--JOIN albums a2 
+--ON a2.AlbumId = t.AlbumId ;
 
+--17 invoices_line_item_count.sql:
+-- Provide a query that shows all Invoices but includes the # of invoice line items
+--SELECT i.*, COUNT(ii.TrackId) ItemCount, SUM(ii.UnitPrice) Total2 FROM invoices i 
+--JOIN invoice_items ii 
+--ON i.InvoiceId = ii.InvoiceId 
+--GROUP BY i.InvoiceId 
 
 --SELECT
 --    Name, 
