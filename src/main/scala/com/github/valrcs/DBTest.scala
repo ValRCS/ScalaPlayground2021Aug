@@ -63,4 +63,15 @@ object DBTest extends App {
   //we print ids 6,7,8 since IDs started with 1 but slicing start with 6th element (index 5)
   // but does not include 9th element(index 8)
   genreCollection.slice(5,8).foreach(println)
+
+  val newSQL =
+    s"""
+       |SELECT * FROM media_types
+       |""".stripMargin
+  val newResultSet = statement.executeQuery(newSQL)
+  while (newResultSet.next()) {
+    //if we do not know names we can just go by column index start with 1
+    print(newResultSet.getString(1))
+    println(newResultSet.getString(2))
+  }
 }
