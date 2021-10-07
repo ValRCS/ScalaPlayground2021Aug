@@ -20,3 +20,7 @@ libraryDependencies += "org.yaml" % "snakeyaml" % "1.29"
 //not very active but still useful if you to read Windows .ini files
 // https://mvnrepository.com/artifact/org.ini4j/ini4j
 libraryDependencies += "org.ini4j" % "ini4j" % "0.5.4"
+
+// https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3"
+
