@@ -1,16 +1,14 @@
 package com.github.valrcs
 
 import scala.io.StdIn.readLine
+import scala.util.Random.nextInt
 
 object ExerciseOct11Nim extends App {
 
   //https://en.wikipedia.org/wiki/Nim
-  //TODO support 2 player mode
-  //TODO support computer mode
-  //TODO add different computer skill levels
 
   //TODO migrate to Class based design for more organization
-  val startingCount = 21
+  val startingCount = 22
   val gameEndCondition = 0
   val minMove = 1
   val maxMove = 3
@@ -18,7 +16,7 @@ object ExerciseOct11Nim extends App {
   val playerCount = readLine("How many players will be playing 1 or 2?").toInt
   val playerA = readLine("Player A what is your name?")
   val playerB = if (playerCount == 2) readLine("Player B what is your name?") else "Computer"
-  //TODO add computer level setup here
+  val computerLevel = if (playerCount == 1) readLine("Computer Level (1-bad,3-best)").toInt else 1
   var gameState = startingCount
   var isPlayerATurn = true
 
@@ -36,17 +34,41 @@ object ExerciseOct11Nim extends App {
     }
   }
 
+  def randomComputer():Int = nextInt(maxMove)+minMove
+
+  def smartComputer(gameState:Int): Int = {
+    //so turns out we need some strategy based on reminder
+    //only question is whether it is maxmove or was it MaxMove + 1
+    //no matter what one person takes, the second person can always guarantee that both players take 4 matches
+    //one takes 1 -> 3  2 -> 2 3 -> 1
+    //so it certainly looks like first person should lose against a computer right?
+    //second thing is strategy for computer when it is losing(against a smart player)
+    //so we need to do match against reminder of 4
+    gameState % 4 match {
+      case 0 => 3 // so from 4 to 1 and oppon ent loses, works for 8, 12, 16, 20
+      case 1 => randomComputer() //what to do when losing? :) my suggestion is play random then
+      case 2 => 1 //so from 2 to 1 and opponent loses, so 2, 6, 10, 14,
+      case 3 => 2 //so from 3 to 1 and again opponent loses, so 3, 7, 11, 15,19 and so on
+//      case _ => 0 //this default should not happen all!
+    }
+
+  }
+
   //TODO create 3 levels of computer
   def getComputerMove(gameState:Int, level:Int=1): Int = {
     //so 1st level is here
-    2
-    //TODO level 2  which is random move between 1 and 3
-    //TODO level 3 which is optimal strategy
+    if (level == 1) {
+      2
+    } else if (level == 2) {
+      randomComputer()  //random computer opponent
+    } else {
+      smartComputer(gameState) // we will need some more logic here so we will make another abstraction
+    }// smart one at level 3 {
   }
 
   def getMove(playerName:String):Int = {
     if (playerName == "Computer") {
-      getComputerMove(gameState)
+      getComputerMove(gameState, computerLevel)
     } else {
       readLine(s"How many matches do you want to take $playerName?").toInt
     }
@@ -58,7 +80,6 @@ object ExerciseOct11Nim extends App {
     println(s"Currently there are $gameState matches on the table")
     val move = getMove(currentPlayer)
     gameState -= clampMove(move, minMove, maxMove, verbose) //same as gameState = gameState - move
-    //TODO limit the number of matches taken
     isPlayerATurn = !isPlayerATurn //toggle a trick to change booleans
     //ask for input
     //change game state
