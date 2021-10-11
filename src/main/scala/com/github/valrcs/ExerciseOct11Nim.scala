@@ -6,7 +6,7 @@ import scala.util.Random.nextInt
 object ExerciseOct11Nim extends App {
 
   //https://en.wikipedia.org/wiki/Nim
-
+  //TODO add ScalaDoc to all functions
   //TODO migrate to Class based design for more organization
   val startingCount = 22
   val gameEndCondition = 0
@@ -69,6 +69,11 @@ object ExerciseOct11Nim extends App {
     }// smart one at level 3 {
   }
 
+  /**
+   * Calculates the next move
+   * @param playerName - player string with "Computer" signifying computer player
+   * @return items to take from game board
+   */
   def getMove(playerName:String):Int = {
     if (playerName == "Computer") {
       getComputerMove(gameState, computerLevel)
