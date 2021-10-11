@@ -2,7 +2,8 @@ package com.github.valrcs
 
 import scala.io.StdIn.readLine
 
-object Nim extends App {
+object ExerciseOct11Nim extends App {
+
   //https://en.wikipedia.org/wiki/Nim
   //TODO support 2 player mode
   //TODO support computer mode
@@ -17,6 +18,7 @@ object Nim extends App {
   val playerCount = readLine("How many players will be playing 1 or 2?").toInt
   val playerA = readLine("Player A what is your name?")
   val playerB = if (playerCount == 2) readLine("Player B what is your name?") else "Computer"
+  //TODO add computer level setup here
   var gameState = startingCount
   var isPlayerATurn = true
 
@@ -46,7 +48,7 @@ object Nim extends App {
     if (playerName == "Computer") {
       getComputerMove(gameState)
     } else {
-    readLine(s"How many matches do you want to take $playerName?").toInt
+      readLine(s"How many matches do you want to take $playerName?").toInt
     }
   }
 
@@ -65,6 +67,7 @@ object Nim extends App {
   val winner = if (isPlayerATurn) playerA else playerB
   val loser = if (!isPlayerATurn) playerA else playerB
   println(s"Game Ended. Congratulations $winner!   Better luck next time $loser")
+
 
 
 }
