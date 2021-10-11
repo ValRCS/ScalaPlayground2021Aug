@@ -20,7 +20,10 @@ object ExerciseOct11Nim extends App {
   var gameState = startingCount
   var isPlayerATurn = true
 
-  println(s"Player A $playerA and Player B $playerB let's play NIM!")
+
+  def beforeGame():Unit = {
+    println(s"Player A $playerA and Player B $playerB let's play NIM!")
+  }
 
   def clampMove(move:Int, min:Int = 1, max:Int = 3, verbose:Boolean = false): Int = {
     if (move > max) {
@@ -74,21 +77,29 @@ object ExerciseOct11Nim extends App {
     }
   }
 
-
-  while (gameState > gameEndCondition) {
-    val currentPlayer = if (isPlayerATurn) playerA else playerB
-    println(s"Currently there are $gameState matches on the table")
-    val move = getMove(currentPlayer)
-    gameState -= clampMove(move, minMove, maxMove, verbose) //same as gameState = gameState - move
-    isPlayerATurn = !isPlayerATurn //toggle a trick to change booleans
-    //ask for input
-    //change game state
+  def mainGameLoop(): Unit = {
+    while (gameState > gameEndCondition) {
+      val currentPlayer = if (isPlayerATurn) playerA else playerB
+      println(s"Currently there are $gameState matches on the table")
+      val move = getMove(currentPlayer)
+      gameState -= clampMove(move, minMove, maxMove, verbose) //same as gameState = gameState - move
+      isPlayerATurn = !isPlayerATurn //toggle a trick to change booleans
+      //ask for input
+      //change game state
+    }
   }
 
-  val winner = if (isPlayerATurn) playerA else playerB
-  val loser = if (!isPlayerATurn) playerA else playerB
-  println(s"Game Ended. Congratulations $winner!   Better luck next time $loser")
+  def afterGame(): Unit = {
+    val winner = if (isPlayerATurn) playerA else playerB
+    val loser = if (!isPlayerATurn) playerA else playerB
+    println(s"Game Ended. Congratulations $winner!   Better luck next time $loser")
+  }
 
 
+  //so start our game actually
+  //TODO config also here
+  beforeGame()
+  mainGameLoop()
+  afterGame()
 
 }
