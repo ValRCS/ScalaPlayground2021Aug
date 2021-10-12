@@ -13,15 +13,31 @@ object ExerciseOct11Nim extends App {
   val minMove = 1
   val maxMove = 3
   val verbose = true
-  val playerCount = readLine("How many players will be playing 1 or 2?").toInt
-  val playerA = readLine("Player A what is your name?")
-  val playerB = if (playerCount == 2) readLine("Player B what is your name?") else "Computer"
-  val computerLevel = if (playerCount == 1) readLine("Computer Level (1-bad,3-best)").toInt else 1
+  //we put some default values in case we forget to initialize
+  var playerCount = 2
+  var playerA = "Player A"
+  var playerB = "Player B"
+  var computerLevel = 1
+
   var gameState = startingCount
   var isPlayerATurn = true
 
 
+  def initPlayerSettings():Unit = {
+    playerCount = readLine("How many players will be playing 1 or 2?").toInt
+    playerA = readLine("Player A what is your name?")
+    playerB = if (playerCount == 2) readLine("Player B what is your name?") else "Computer"
+    computerLevel = if (playerCount == 1) readLine("Computer Level (1-bad,3-best)").toInt else 1
+  }
+
+  def initAllGameSettings():Unit = {
+    initPlayerSettings()
+    resetGameState()
+  }
+
+
   def beforeGame():Unit = {
+    initAllGameSettings()
     println(s"Player A $playerA and Player B $playerB let's play NIM!")
   }
 
@@ -108,7 +124,13 @@ object ExerciseOct11Nim extends App {
       singleGameLoop()
       afterGame()
       val response = readLine("New game Y/N ?")
-      if (response.toLowerCase.startsWith("y")) resetGameState()
+      if (response.toLowerCase.startsWith("y")) {
+        val newPlayerResponse = readLine("New Players ? Y/N")
+        if (newPlayerResponse.toLowerCase.startsWith("y")) {
+          initPlayerSettings()
+        }
+        resetGameState() //we need to reset game state no matter if we have new players
+      }
       else is_game_needed = false  //in this case we end the game on anything other text starting with y or Y
     }
 
@@ -131,11 +153,17 @@ object ExerciseOct11Nim extends App {
 
   }
 
+  def cleanupAfterAllGames(): Unit = {
+    //TODO actually cleanup if needed, meaning closing open connections to database, online resources etc.
+    println("ALl games ended, cleaning up, you don't have to go home, but you can't stay here..")
+  }
+
 
   //so start our game actually
   //TODO config also here
   beforeGame()
   mainGameLoop()
+  cleanupAfterAllGames()
 
 
 }
