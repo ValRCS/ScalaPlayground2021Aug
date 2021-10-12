@@ -22,6 +22,23 @@ object ExerciseOct11Nim extends App {
   var gameState = startingCount
   var isPlayerATurn = true
 
+  val playerMap = scala.collection.mutable.Map[String, Player]() // so fresh map of strings mapping to Player
+
+  def updatePlayer(playerName:String, isWinner:Boolean):Unit = {
+    //https://alvinalexander.com/scala/how-to-add-update-remove-mutable-map-elements-scala-cookbook/
+    val win = if (isWinner) 1 else 0
+    val loss = if (isWinner) 0 else 1
+
+    if (playerMap.contains(playerName)) {
+      val player = playerMap.get(playerName).getOrElse(Player())
+      player.win += win
+      player.loss += loss
+      //TODO investigate whether player is updated in the playerMap
+    } else {
+      val player = Player(playerName, win, loss)
+      playerMap += (playerName -> player)
+    }
+  }
 
   def initPlayerSettings():Unit = {
     playerCount = readLine("How many players will be playing 1 or 2?").toInt
@@ -118,6 +135,13 @@ object ExerciseOct11Nim extends App {
     isPlayerATurn = true
   }
 
+  def displayGameStats():Unit = {
+    //TODO show player wins losses here
+    //so we need to go through playerMap and show some results
+    println("Show game stats preferably sorted by wins")
+  }
+
+
   def mainGameLoop(): Unit = {
     var is_game_needed = true
     while (is_game_needed) {
@@ -130,6 +154,7 @@ object ExerciseOct11Nim extends App {
           initPlayerSettings()
         }
         resetGameState() //we need to reset game state no matter if we have new players
+        displayGameStats()
       }
       else is_game_needed = false  //in this case we end the game on anything other text starting with y or Y
     }
@@ -150,7 +175,8 @@ object ExerciseOct11Nim extends App {
     val winner = if (isPlayerATurn) playerA else playerB
     val loser = if (!isPlayerATurn) playerA else playerB
     println(s"Game Ended. Congratulations $winner!   Better luck next time $loser")
-
+    updatePlayer(winner, isWinner = true)
+    updatePlayer(loser, isWinner = false)
   }
 
   def cleanupAfterAllGames(): Unit = {
