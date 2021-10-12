@@ -8,6 +8,7 @@ object ExerciseOct11Nim extends App {
   //https://en.wikipedia.org/wiki/Nim
   //TODO add ScalaDoc to all functions
   //TODO migrate to Class based design for more organization
+  val statsFile = "src/resources/nim/stats.tsv" //so tab separated values
   val startingCount = 7
   val gameEndCondition = 0
   val minMove = 1
@@ -22,7 +23,7 @@ object ExerciseOct11Nim extends App {
   var gameState = startingCount
   var isPlayerATurn = true
 
-  val playerMap = scala.collection.mutable.Map[String, Player]() // so fresh map of strings mapping to Player
+  var playerMap = scala.collection.mutable.Map[String, Player]() // so fresh map of strings mapping to Player
 
   def updatePlayer(playerName:String, isWinner:Boolean):Unit = {
     //https://alvinalexander.com/scala/how-to-add-update-remove-mutable-map-elements-scala-cookbook/
@@ -52,10 +53,25 @@ object ExerciseOct11Nim extends App {
     resetGameState()
   }
 
+  def loadGameStats(statsFile:String, sep:String = "\t"):Map[String,Player] = {
+    val lines = Utilities.getLinesFromFile(statsFile)
+    val splitLines = lines.tail.map(line => line.split(sep))
+    val playerList = for (lineArr <- splitLines) yield {
+      lineArr match {
+        //so if we get array of 3 strings we can create our player otherwise we create a blankie
+        case Array(player, win, loss) => Player(player, win.toInt, loss.toInt)
+        case _ => Player()
+      }
+    }
+    playerList.map(player => (player.name -> player)).toMap
+  }
 
   def beforeGame():Unit = {
     initAllGameSettings()
+    playerMap = loadGameStats(statsFile).to(collection.mutable.Map) //we will need to mutate this map
+    displayGameStats()
     println(s"Player A $playerA and Player B $playerB let's play NIM!")
+
   }
 
   def clampMove(move:Int, min:Int = 1, max:Int = 3, verbose:Boolean = false): Int = {
@@ -135,10 +151,35 @@ object ExerciseOct11Nim extends App {
     isPlayerATurn = true
   }
 
+  def getPlayerListFromMap(playerMap:scala.collection.mutable.Map[String, Player]):Array[Player] = {
+    //so we go through our map and only yield the values(Players) wich we convert to Array and sort by wins Descending
+    (for ((playerName,player) <- playerMap) yield player).toArray.sortBy(_.win).reverse
+    //TODO add default parameters for sorting ascending, descending, win or loss etc, low priority
+  }
+
+  def savePlayerStats(saveFile:String, playerList:Array[Player]):Unit = {
+    println(s"Saving ${playerList.length} players into $saveFile")
+    //first we need to conver our player objects to strings that would be somewhat formatted
+    //so we create an array of lines to save
+    //first line will be our header
+    //rest will be our players transformed into strings using our little string function
+    val playerStrings = Array("name\twin\tloss") ++ playerList.map(player => player.getPrettyRow())
+    Utilities.saveLines(saveFile, playerStrings)
+  }
+
   def displayGameStats():Unit = {
     //TODO show player wins losses here
     //so we need to go through playerMap and show some results
     println("Show game stats preferably sorted by wins")
+    //simple unsorted key value print
+//    for ((key,value) <- playerMap) {
+//      println(s"Player: $key -> $value")
+//    }
+    val playerList = getPlayerListFromMap(playerMap)
+    println("PlayerName\tWin\tLoss")
+    playerList.foreach(player => println(player.getPrettyRow()))
+
+    println("*"*40)
   }
 
 
@@ -182,6 +223,8 @@ object ExerciseOct11Nim extends App {
   def cleanupAfterAllGames(): Unit = {
     //TODO actually cleanup if needed, meaning closing open connections to database, online resources etc.
     println("ALl games ended, cleaning up, you don't have to go home, but you can't stay here..")
+    displayGameStats()
+    savePlayerStats(saveFile = statsFile, getPlayerListFromMap(playerMap))
   }
 
 
