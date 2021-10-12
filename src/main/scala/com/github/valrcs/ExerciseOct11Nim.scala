@@ -8,7 +8,7 @@ object ExerciseOct11Nim extends App {
   //https://en.wikipedia.org/wiki/Nim
   //TODO add ScalaDoc to all functions
   //TODO migrate to Class based design for more organization
-  val startingCount = 22
+  val startingCount = 7
   val gameEndCondition = 0
   val minMove = 1
   val maxMove = 3
@@ -82,7 +82,7 @@ object ExerciseOct11Nim extends App {
     }
   }
 
-  def mainGameLoop(): Unit = {
+  def singleGameLoop(): Unit = {
     while (gameState > gameEndCondition) {
       val currentPlayer = if (isPlayerATurn) playerA else playerB
       println(s"Currently there are $gameState matches on the table")
@@ -94,10 +94,41 @@ object ExerciseOct11Nim extends App {
     }
   }
 
+  /**
+   * Resets game state to original
+   */
+  def resetGameState(): Unit = {
+    gameState = startingCount
+    isPlayerATurn = true
+  }
+
+  def mainGameLoop(): Unit = {
+    var is_game_needed = true
+    while (is_game_needed) {
+      singleGameLoop()
+      afterGame()
+      val response = readLine("New game Y/N ?")
+      if (response.toLowerCase.startsWith("y")) resetGameState()
+      else is_game_needed = false  //in this case we end the game on anything other text starting with y or Y
+    }
+
+  }
+
+
+  def saveWinnerLoser(saveFile: String, winner:String, loser:String): Unit = {
+    //TODO implement
+  }
+
+
+  def displayTopPlayers(saveFile: String):Unit = {
+    //TODO implement this func
+  }
+
   def afterGame(): Unit = {
     val winner = if (isPlayerATurn) playerA else playerB
     val loser = if (!isPlayerATurn) playerA else playerB
     println(s"Game Ended. Congratulations $winner!   Better luck next time $loser")
+
   }
 
 
@@ -105,6 +136,6 @@ object ExerciseOct11Nim extends App {
   //TODO config also here
   beforeGame()
   mainGameLoop()
-  afterGame()
+
 
 }
