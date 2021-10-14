@@ -1,5 +1,6 @@
 package com.github.valrcs
 
+import scala.collection.mutable.ArrayBuffer
 import scala.io.StdIn.readLine
 import scala.util.Random.nextInt
 
@@ -10,6 +11,8 @@ object ExerciseOct11Nim extends App {
   //TODO migrate to Class based design for more organization
   val statsFile = "src/resources/nim/stats.tsv" //so tab separated values
   val statsDB = "src/resources/db/nim.db"
+  //for bigger database you might also have user name and password which you should not store in code
+  //instead it should be loaded from enviroment variables //TODO next week
   val startingCount = 7
   val gameEndCondition = 0
   val minMove = 1
@@ -35,10 +38,12 @@ object ExerciseOct11Nim extends App {
       val player = playerMap.get(playerName).getOrElse(Player())
       player.win += win
       player.loss += loss
-      //TODO investigate whether player is updated in the playerMap
     } else {
       val player = Player(playerName, win, loss)
       playerMap += (playerName -> player)
+      //so here we would also insert the player into our database
+      val conn = DBUtilities.getConnection(statsDB)
+      DBUtilities.insertPlayer(conn, player)
     }
   }
 
@@ -54,7 +59,42 @@ object ExerciseOct11Nim extends App {
     resetGameState()
   }
 
-  def loadGameStats(statsFile:String, sep:String = "\t"):Map[String,Player] = {
+
+
+  def loadGameStats(statsFile:String, use_database:Boolean=true):Map[String,Player] = {
+    if (use_database) {
+      loadGameStatsFromDB(statsFile)
+    } else {
+      loadGameStatsFromTSV(statsFile)
+    }
+  }
+
+  def loadGameStatsFromDB(dbFile:String):Map[String,Player] = {
+      //TODO connect to DB
+    //SELECT * FROM results
+    //parse into Map of Players
+    val conn = DBUtilities.getConnection(dbFile)
+    val statement = conn.createStatement()
+
+    val newSQL =
+      """
+         |SELECT * FROM results
+         |""".stripMargin
+
+    val newResultSet = statement.executeQuery(newSQL)
+    val playerList = ArrayBuffer[Player]() //to hold players while i get all of them
+    while (newResultSet.next())  {
+      val name = newResultSet.getString(2)
+      val win = newResultSet.getInt(3)
+      val loss = newResultSet.getInt(4)
+      val player = Player(name, win, loss)
+      playerList += player
+    }
+    //so i need to cast it to Map of player names and Player objects
+    playerList.map(player => (player.name -> player)).toMap
+  }
+
+  def loadGameStatsFromTSV(statsFile:String, sep:String = "\t"):Map[String,Player] = {
     val lines = Utilities.getLinesFromFile(statsFile)
     val splitLines = lines.tail.map(line => line.split(sep))
     val playerList = for (lineArr <- splitLines) yield {
@@ -69,7 +109,9 @@ object ExerciseOct11Nim extends App {
 
   def beforeGame():Unit = {
     initAllGameSettings()
-    playerMap = loadGameStats(statsFile).to(collection.mutable.Map) //we will need to mutate this map
+    // TSV based loading
+    // playerMap = loadGameStats(statsFile, use_database = false).to(collection.mutable.Map) //we will need to mutate this map
+    playerMap = loadGameStats(statsDB).to(collection.mutable.Map) //we will need to mutate this map
     displayGameStats()
     println(s"Player A $playerA and Player B $playerB let's play NIM!")
 
@@ -162,7 +204,10 @@ object ExerciseOct11Nim extends App {
     val conn = DBUtilities.getConnection(statsDB)
 //    DBUtilities.createTable(conn) // we really want to do createTable once
 //    // so above should be separate program or do it by hand in DBeaver etc
-    playerList.foreach(player => DBUtilities.insertPlayer(conn, player))
+//    playerList.foreach(player => DBUtilities.insertPlayer(conn, player)) //we only want to insert once
+    playerList.foreach(player => DBUtilities.updatePlayer(conn, player)) //we only want to insert once
+    //FIXME make sure that player exists (meaning we want to insert new players as well)
+
   }
 
   def savePlayerStats(saveFile:String, playerList:Array[Player]):Unit = {

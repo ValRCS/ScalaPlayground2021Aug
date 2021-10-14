@@ -65,4 +65,29 @@ object DBUtilities {
 
   }
 
+  def updatePlayer(conn:Connection, player:Player):Unit = {
+    println(s"Updating Player $player")
+    val insertSql = """
+                      |UPDATE results
+                      |SET win = (?),
+                      |	lose = (?)
+                      |WHERE player = (?)
+                      |;
+""".stripMargin
+
+    val preparedStmt: PreparedStatement = conn.prepareStatement(insertSql)
+    //sql 1 indexed here
+
+    preparedStmt.setInt(1, player.win)
+    preparedStmt.setInt(2, player.loss)
+    preparedStmt.setString(3, player.name)
+
+    preparedStmt.execute
+    //FIXME better performance to batch insert
+    preparedStmt.close()
+  }
+
+
+
+
 }
