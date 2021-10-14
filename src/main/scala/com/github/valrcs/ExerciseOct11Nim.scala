@@ -9,6 +9,7 @@ object ExerciseOct11Nim extends App {
   //TODO add ScalaDoc to all functions
   //TODO migrate to Class based design for more organization
   val statsFile = "src/resources/nim/stats.tsv" //so tab separated values
+  val statsDB = "src/resources/db/nim.db"
   val startingCount = 7
   val gameEndCondition = 0
   val minMove = 1
@@ -157,6 +158,13 @@ object ExerciseOct11Nim extends App {
     //TODO add default parameters for sorting ascending, descending, win or loss etc, low priority
   }
 
+  def saveToDatabase(playerList:Array[Player]):Unit = {
+    val conn = DBUtilities.getConnection(statsDB)
+//    DBUtilities.createTable(conn) // we really want to do createTable once
+//    // so above should be separate program or do it by hand in DBeaver etc
+    playerList.foreach(player => DBUtilities.insertPlayer(conn, player))
+  }
+
   def savePlayerStats(saveFile:String, playerList:Array[Player]):Unit = {
     println(s"Saving ${playerList.length} players into $saveFile")
     //first we need to conver our player objects to strings that would be somewhat formatted
@@ -165,6 +173,9 @@ object ExerciseOct11Nim extends App {
     //rest will be our players transformed into strings using our little string function
     val playerStrings = Array("name\twin\tloss") ++ playerList.map(player => player.getPrettyRow())
     Utilities.saveLines(saveFile, playerStrings)
+
+    //TODO save stats in DataBase as well
+    saveToDatabase(playerList)
   }
 
   def displayGameStats():Unit = {
