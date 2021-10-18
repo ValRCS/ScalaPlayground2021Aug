@@ -5,7 +5,11 @@ import java.nio.file.{Files, Paths}
 import scala.io.Source
 
 /**
- * Utilities collects our commonly uses utilities across the whole project
+ * Utilities collects our commonly used utilities across the whole project
+ *  @author Valdis Saulespurens
+ *  @version 1.0.0
+ *  @todo Add more functionality.
+ *  @see See [[https://github.com/ValRCS/ScalaPlayground2021Aug Course Repository]] for more "
  */
 object Utilities {
   val MYP = 3.1415926
@@ -17,6 +21,8 @@ object Utilities {
    * @param monthIndex starting 1 to 12 included
    * @return month of the year as string
    *         note: valid months are 1 to 12
+   *  @example Utilities.getMonth(12) == "December"
+   *
    */
   def getMonth(monthIndex: Int):String = {
     monthIndex match {

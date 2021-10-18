@@ -10,7 +10,7 @@ object ExerciseOct11Nim extends App {
   //TODO add ScalaDoc to all functions
   //TODO migrate to Class based design for more organization
   val statsFile = "src/resources/nim/stats.tsv" //so tab separated values
-  val statsDB = "src/resources/db/nim.db"
+  val statsDB =  if (args.length == 0)  "src/resources/db/nim.db" else args(0) //so first argument will be database file
   //for bigger database you might also have user name and password which you should not store in code
   //instead it should be loaded from enviroment variables //TODO next week
   val startingCount = 7
