@@ -27,4 +27,17 @@ libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3"
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % Test
 
+// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+//libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.7.32" % Test
+//libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.7.32"
+
+
+// https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+//libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.6" % Test
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.6"
+
+// https://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging
+libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4"
+
+
 
