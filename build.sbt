@@ -24,3 +24,7 @@ libraryDependencies += "org.ini4j" % "ini4j" % "0.5.4"
 // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
 libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3"
 
+// https://mvnrepository.com/artifact/org.scalatest/scalatest
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % Test
+
+
