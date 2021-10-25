@@ -39,5 +39,12 @@ libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.6"
 // https://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging
 libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4"
 
+// https://mvnrepository.com/artifact/org.scala-lang.modules/scala-swing
+libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
+
+//// https://mvnrepository.com/artifact/org.openjfx/javafx
+//libraryDependencies += "org.openjfx" % "javafx" % "17.0.0.1" pomOnly()
+
+
 
 
